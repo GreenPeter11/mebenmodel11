@@ -1,0 +1,72 @@
+// This file defines the Prisma data models and database connection for the application.
+// It belongs to the data layer that stores courses and registrations in a PostgreSQL database.
+
+// ============================
+// Generator configuration (Prisma Client)
+// ============================
+
+/// The Prisma Client generator creates a type-safe database client
+/// that the application uses to read and write data in PostgreSQL.
+/// It generates the client into the standard location where @prisma/client can import it.
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ============================
+// Datasource configuration (PostgreSQL)
+// ============================
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================
+// Course model
+// ============================
+
+/// The Course model represents a single training course that can be listed and viewed by learners.
+model Course {
+  id          Int           @id @default(autoincrement())
+  /// Human-friendly title for the course.
+  title       String
+  /// URL-safe identifier used in the /courses/[slug] route.
+  slug        String        @unique
+  /// High-level area of focus such as Business, IT, or Agriculture.
+  category    String
+  /// Short and clear description of what the course covers.
+  description String
+  /// Simple text description of how long the course runs (for example, "3 days").
+  duration    String
+  /// Plain text schedule information (for example, "Weekdays · Morning sessions").
+  schedule    String
+  /// Where the course is usually delivered (for example, "Training center · City location").
+  location    String
+  /// Name or brief label for the trainer responsible for the course.
+  trainer     String
+  /// When the course record was created in the system.
+  createdAt   DateTime      @default(now())
+
+  /// Registrations linked to this course.
+  registrations Registration[]
+}
+
+// ============================
+// Registration model
+// ============================
+
+/// The Registration model represents a person expressing interest in joining a specific course.
+model Registration {
+  id        Int      @id @default(autoincrement())
+  /// Full name of the person registering.
+  fullName  String
+  /// Email address used for follow-up and course information.
+  email     String
+  /// Phone number so the team can contact the learner if needed.
+  phone     String
+  /// Link to the specific course the learner is registering for.
+  courseId  Int
+  course    Course   @relation(fields: [courseId], references: [id])
+  /// When the registration record was created in the system.
+  createdAt DateTime @default(now())
+}
+
