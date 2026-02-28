@@ -3,3 +3,20 @@ node_modules
 .env
 
 /lib/generated/prisma
+
+# Next.js
+.next/
+dist/
+
+# Build artifacts
+*.hot-update.js
+*.hot-update.json
+.webpack/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
