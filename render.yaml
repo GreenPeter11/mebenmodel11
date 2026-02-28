@@ -10,6 +10,4 @@ services:
       - key: NODE_ENV
         value: production
       - key: DATABASE_URL
-        fromDatabase:
-          name: mebenmodel-db
-          property: connectionString
+        sync: false
