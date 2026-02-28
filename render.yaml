@@ -15,15 +15,9 @@ services:
           name: mebenmodel-db
           property: connectionString
     healthCheckPath: /
-    routes:
-      - type: http
-        path: /
 
   - type: pserv
     name: mebenmodel-db
     ipAllowList: []
     plan: free
     region: oregon
-    database: mebenmodel
-    user: mebenmodel
-    postgresMajorVersion: 15
