@@ -9,8 +9,7 @@
 /// that the application uses to read and write data in PostgreSQL.
 /// It generates the client into the standard location where @prisma/client can import it.
 generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["driverAdapters"]
+  provider = "prisma-client-js"
 }
 
 // ============================
