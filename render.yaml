@@ -5,10 +5,7 @@ services:
     region: oregon
     plan: free
     buildCommand: |
-      set NPM_CONFIG_PRODUCTION=false && \
-      npm install --legacy-peer-deps && \
-      npx prisma generate && \
-      npm run build
+      export NPM_CONFIG_PRODUCTION=false && npm install --legacy-peer-deps && npx prisma generate && npm run build
     startCommand: npm start
     envVars:
       - key: NODE_ENV
