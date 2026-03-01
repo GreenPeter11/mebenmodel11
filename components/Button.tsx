@@ -22,6 +22,7 @@ type ButtonProps = {
   size?: "sm" | "md" | "lg";
   className?: string;
   type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 };
 
 // ============================
@@ -44,6 +45,7 @@ export function Button(props: ButtonProps) {
     size = "md",
     className = "",
     type = "button",
+    disabled = false,
   } = props;
 
   const baseClasses =
@@ -64,7 +66,7 @@ export function Button(props: ButtonProps) {
     lg: "px-8 py-3.5 text-lg",
   };
 
-  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${className}`;
+  const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${disabled ? "opacity-50 cursor-not-allowed" : ""} ${className}`;
 
   if (href) {
     return (
@@ -83,6 +85,7 @@ export function Button(props: ButtonProps) {
     <motion.button
       type={type}
       onClick={onClick}
+      disabled={disabled}
       className={classes}
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
