@@ -6,9 +6,14 @@ export const metadata = { title: "All Courses | Education Platform" };
 export const dynamic = "force-dynamic";
 
 export default async function CoursesPage() {
-  const courses = await prisma.course.findMany({
-    orderBy: { createdAt: "desc" },
-  });
+  let courses: any[] = [];
+  try {
+    courses = await prisma.course.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+  } catch (err) {
+    console.error("Database connection error on CoursesPage:", err);
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12">

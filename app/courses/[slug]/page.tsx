@@ -7,9 +7,14 @@ import Link from "next/link";
 export const dynamic = "force-dynamic";
 
 export default async function CourseDetailPage({ params }: { params: { slug: string } }) {
-  const course = await prisma.course.findUnique({
-    where: { slug: params.slug },
-  });
+  let course = null;
+  try {
+    course = await prisma.course.findUnique({
+      where: { slug: params.slug },
+    });
+  } catch (err) {
+    console.error("Database connection error on CourseDetailPage:", err);
+  }
 
   if (!course) {
     notFound();

@@ -9,12 +9,18 @@ export const dynamic = "force-dynamic";
 export default async function AdminDashboard() {
     requireAdmin();
 
-    const [coursesCount, regsCount, courses, registrations] = await Promise.all([
-        prisma.course.count(),
-        prisma.registration.count(),
-        prisma.course.findMany({ orderBy: { createdAt: "desc" } }),
-        prisma.registration.findMany({ include: { course: true }, orderBy: { createdAt: "desc" } }),
-    ]);
+    let coursesCount = 0, regsCount = 0, courses: any[] = [], registrations: any[] = [];
+
+    try {
+        [coursesCount, regsCount, courses, registrations] = await Promise.all([
+            prisma.course.count(),
+            prisma.registration.count(),
+            prisma.course.findMany({ orderBy: { createdAt: "desc" } }),
+            prisma.registration.findMany({ include: { course: true }, orderBy: { createdAt: "desc" } }),
+        ]);
+    } catch (err) {
+        console.error("Database connection error on AdminDashboard:", err);
+    }
 
     return (
         <div className="space-y-8 animate-in fade-in duration-500">
