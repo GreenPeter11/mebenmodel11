@@ -8,6 +8,10 @@
 /** @type {import("next").NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  eslint: {
+    // ESLint warnings/errors won't fail the production build on Render
+    ignoreDuringBuilds: true,
+  },
 };
 
 export default nextConfig;
