@@ -6,41 +6,25 @@
 // Imports
 // ============================
 import { PrismaClient } from "@prisma/client";
-import { Pool } from "pg";
-import { PrismaPg } from "@prisma/adapter-pg";
 
 // ============================
 // Database logic (Prisma Client)
 // ============================
 
 // The Prisma Client is a type-safe database client automatically generated from schema.prisma.
-// It is used by the application to perform reads and writes against the PostgreSQL database using simple,
-// readable method calls (for example, prisma.course.findMany()) instead of raw SQL.
-// For Prisma 7, we use the PostgreSQL adapter to connect to the database.
+// It connects to the PostgreSQL database via the DATABASE_URL environment variable.
+// It is reused across the application to avoid exhausting the connection pool.
 
 const globalForPrisma = globalThis as unknown as {
   prisma?: PrismaClient;
 };
 
-// Create a PostgreSQL connection pool using the DATABASE_URL from environment variables.
-const connectionString = process.env.DATABASE_URL;
-if (!connectionString) {
-  throw new Error("DATABASE_URL environment variable is not set");
-}
-
-const pool = new Pool({ connectionString });
-const adapter = new PrismaPg(pool);
-
-const prisma =
+export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
-    adapter,
-    log: ["error", "warn"],
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
   });
 
 if (process.env.NODE_ENV !== "production") {
   globalForPrisma.prisma = prisma;
 }
-
-export { prisma };
-
