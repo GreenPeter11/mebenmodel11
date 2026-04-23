@@ -9,3 +9,5 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      - key: DATABASE_URL
+        value: postgresql://mebenmodel_db_3rq8_user:Jz3tDZakhWRotovrcrkSMvfpxZRlLVpA@dpg-d7l6bdn7f7vs73as6dk0-a/mebenmodel_db_3rq8
