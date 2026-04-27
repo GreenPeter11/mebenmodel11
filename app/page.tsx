@@ -1,5 +1,6 @@
 // app/page.tsx — Server component: fetches courses from DB, renders hero + CTA directly,
 // delegates icon/motion/coursecard sections to <HomeSections> (client component).
+export const dynamic = "force-dynamic";
 
 import Link from "next/link";
 import { prisma } from "@/lib/prisma";

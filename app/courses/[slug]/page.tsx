@@ -8,6 +8,9 @@ import type { ReactElement } from "react";
 import { prisma } from "@/lib/prisma";
 import { CourseRegistrationModal } from "@/components/CourseRegistrationModal";
 
+export const dynamic = "force-dynamic";
+
+
 // ============================
 // Data fetching logic (database lookup by slug)
 // ============================
