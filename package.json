@@ -1,7 +1,7 @@
 {
   "name": "mebenmodel",
   "version": "1.0.0",
-  "description": "Simple Next.js 14 starter with TypeScript and Tailwind CSS",
+  "description": "Mebenmodel LMS - Full-stack learning management system",
   "license": "ISC",
   "main": "index.js",
   "engines": {
@@ -10,22 +10,29 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
-    "start": "prisma migrate deploy && next start",
+    "start": "prisma migrate deploy && prisma db seed && next start",
     "lint": "next lint"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
   "dependencies": {
     "@prisma/client": "^5.22.0",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.2.2",
     "@types/pg": "^8.16.0",
     "@types/react": "^19.2.13",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.24",
+    "bcryptjs": "^3.0.3",
     "dotenv": "^16.0.0",
     "eslint": "^8.50.0",
     "eslint-config-next": "^14.2.35",
     "framer-motion": "^12.34.2",
+    "jsonwebtoken": "^9.0.3",
     "lucide-react": "^0.574.0",
     "next": "^14.2.35",
     "pg": "^8.18.0",
@@ -34,6 +41,7 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwindcss": "^3.4.19",
+    "ts-node": "^10.9.2",
     "typescript": "^5.9.3"
   }
 }
